@@ -1,0 +1,2 @@
+C:\Users\usuario\Documents\Ingeniería civil\Quinto semestre\Programación orientada a objetos\Laboratorios\Laboratorio 3\laboratorio-03-mabinder96\Laboratorio3\Laboratorio3\obj\Debug\Laboratorio3.csprojAssemblyReference.cache
+C:\Users\usuario\Documents\Ingeniería civil\Quinto semestre\Programación orientada a objetos\Laboratorios\Laboratorio 3\laboratorio-03-mabinder96\Laboratorio3\Laboratorio3\obj\Debug\Laboratorio3.csproj.CoreCompileInputs.cache

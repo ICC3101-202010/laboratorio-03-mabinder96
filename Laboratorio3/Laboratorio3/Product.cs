@@ -16,14 +16,14 @@ namespace Laboratorio3
         private string type;
 
 
-        public Product()
+        public Product(string nameproduct, int price, string brand, int stockinshowcase, int stockincellar, string type)
         {
-            this.nameproduct = getRandomLastName();
-            this.price = getRandomPrice();
-            this.brand = getRandomBrand();
-            this.stockinshowcase = getRandomStock();
-            this.stockincellar = getRandomStock();
-            this.type = getType();
+            this.nameproduct = nameproduct;
+            this.price = price;
+            this.brand = brand;
+            this.stockinshowcase = stockinshowcase;
+            this.stockincellar = stockincellar;
+            this.type = type;
         }
 
         public string Nameproduct { get => nameproduct; set => nameproduct = value; }

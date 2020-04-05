@@ -13,7 +13,7 @@ namespace Laboratorio3
 
         }
         List<Product> products = new List<Product>(); //Creo lista de productos que tiene el supermercado
-       
+
         //Creo método para agregar productos
         public void AddProduct(Product product)
         {
@@ -31,7 +31,7 @@ namespace Laboratorio3
                     answer.Add(a);
                 }
             }
-            foreach(Product b in products)
+            foreach (Product b in products)
             {
                 Console.WriteLine(b.ProductInformation());
             }
@@ -46,7 +46,7 @@ namespace Laboratorio3
                 {
                     Console.WriteLine("Este supermecado no tiene productos");
                 }
-                else if (products[i].Nameproduct==product && products[i].Brand == brand)
+                else if (products[i].Nameproduct == product && products[i].Brand == brand)
                 {
                     if (products[i].Stockinshowcase >= quantity)
                     {
@@ -67,5 +67,6 @@ namespace Laboratorio3
             }
 
         }
-
     }
+}
+    

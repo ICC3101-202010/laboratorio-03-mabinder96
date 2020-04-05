@@ -12,32 +12,18 @@ namespace Laboratorio3
         private int salary;
         private string workinghours;
 
-        public Employee()
+        public Employee(string name, string surname, int age,string sex,int rut,string birthdate, string nationality,string position,int salary,string workinghours)
         {
-            this.name = getRandomName();
-            this.surname = getRandomLastName();
-            this.age = getRandomAge();
-            this.sex = getRandomSex();
-            this.rut = getRandomRut();
-            this.birthdate = getBirthDate();
-            this.nationality = getRandomNationality();
-            this.position = getRandomPosition();
-            this.salary = getRandomSalary();
-            this.workinghours = getRandomWorkingHours();
-        }
-
-
-        public override void Eat()
-        {
-            Console.WriteLine("Soy" + name + "y estoy comiendo");
-        }
-        public override void Touch()
-        {
-            Console.WriteLine("Soy" + name + "y estoy tocando");
-        }
-        public override void Communicate()
-        {
-            Console.WriteLine("Soy" + name + "y me estoy comunicando");
+            this.name = name;
+            this.surname = surname;
+            this.age = age;
+            this.sex = sex;
+            this.rut = rut;
+            this.birthdate = birthdate;
+            this.nationality = nationality;
+            this.position = position;
+            this.salary = salary;
+            this.workinghours = workinghours;
         }
 
         public Employee Work(Employee position)
@@ -113,14 +99,15 @@ namespace Laboratorio3
             return randomGenerator.Next(18, 95);
         }
 
-        public string getRandomRut()
+        public int getRandomRut()
         {
             string rut = "";
             for (int i = 0; i <= 9; i++)
             {
                 rut += randomGenerator.Next(0, 9);
             }
-            return rut;
+            int rut2 = Convert.ToInt32(rut);
+            return rut2;
         }
         public string getRandomSex()
         {
@@ -239,6 +226,10 @@ namespace Laboratorio3
             {
                 return "9:00-20.00";
             }
+        }
+        public string EmployeeInformation()
+        {
+            return "nombre: " + name + ", apellido: " + surname + ", edad: " + age + ", rut: " + rut + ", género: " + sex + ", nacionalidad: " + nationality + ", fecha de nacimiento: " + birthdate+ ", sueldo: "+ salary+ ", horario: "+workinghours+ ", cargo: "+ position ;
         }
 
     }

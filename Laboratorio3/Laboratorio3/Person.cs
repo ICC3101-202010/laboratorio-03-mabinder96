@@ -12,11 +12,9 @@ namespace Laboratorio3
         protected string surname;
         protected int age;
         protected string sex;
-        protected string rut; //Si termina en k, se reemplaza por 0
+        protected int rut; //Si termina en k, se reemplaza por 0
         protected string birthdate;
         protected string nationality;
-        public abstract void Eat();
-        public abstract void Communicate();
-        public abstract void Touch();
+
     }
 }

@@ -9,51 +9,31 @@ namespace Laboratorio3
     public class Client : Person, IBuy
     {
 
-
-
-        public Client()
+        private Dictionary<string, int> clientwishes; 
+        public Client(string name, string surname, int age, string sex, int rut, string birthdate, string nationality, Dictionary<string, int> clientwishes)
         {
-            this.name = getRandomName();
-            this.surname = getRandomLastName();
-            this.age = getRandomAge();
-            this.sex = getRandomSex();
-            this.rut = getRandomRut();
-            this.birthdate = getBirthDate();
-            this.nationality = getRandomNationality();
+            this.name = name;
+            this.surname = surname;
+            this.age = age;
+            this.sex = sex;
+            this.rut = rut;
+            this.birthdate = birthdate;
+            this.nationality = nationality;
+            this.clientwishes = clientwishes;
 
         }
 
-        public override void Eat()
+        public Dictionary<string,int>  createwishes()
         {
-            Console.WriteLine("Soy" + name + "y estoy comiendo");
-        }
-        public override void Communicate()
-        {
-            Console.WriteLine("Soy" + name + "y me estoy comunicando");
-        }
-        public void Watch()
-        {
-            Console.WriteLine("Soy" + name + "y te estoy observando");
+            Console.WriteLine("Ingrese el nombre del producto");
+            Console.ReadLine();
+            return clientwishes;
         }
 
-        public override void Touch()
-        {
-            Console.WriteLine("Soy" + name + "y estoy tocando");
-        }
+
         public void Buy(Product nameproduct, Product brand, int cantidad)
         {
-            for (int i = 0; i < products.Count; ++i)
-            {
-                int total = nameproduct.Stockinshowcase + nameproduct.Stockincellar;
-                if (total == 0)
-                {
-                    Console.WriteLine("No quedan productos");
-                }
-                else
-                {
-                    continue; //si la canción no está en la lista, continuo
-                }
-            }
+
 
         }
         public Random randomGenerator;
@@ -88,14 +68,15 @@ namespace Laboratorio3
             return randomGenerator.Next(18, 95);
         }
 
-        public string getRandomRut()
+        public int getRandomRut()
         {
             string rut = "";
             for (int i = 0; i <= 9; i++)
             {
                 rut += randomGenerator.Next(0, 9);
             }
-            return rut;
+            int rut2 = Convert.ToInt32(rut);
+            return rut2;
         }
         public string getRandomSex()
         {
@@ -142,6 +123,11 @@ namespace Laboratorio3
             return birthdate;
 
 
+        }
+
+        public string ClientInformation()
+        {
+            return "nombre: " + name + ", apellido: " + surname + ", edad: " + age + ", rut: " + rut + ", género: " + sex + ", nacionalidad: " + nationality + ", fecha de nacimiento: " + birthdate;
         }
     }
 }
