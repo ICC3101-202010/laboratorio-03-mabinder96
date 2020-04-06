@@ -1,0 +1,7 @@
+C:\Users\usuario\Documents\Ingeniería civil\Quinto semestre\Programación orientada a objetos\Laboratorios\Laboratorio 3\laboratorio-03-mabinder96\Lab3\Lab3\bin\Debug\Lab3.exe.config
+C:\Users\usuario\Documents\Ingeniería civil\Quinto semestre\Programación orientada a objetos\Laboratorios\Laboratorio 3\laboratorio-03-mabinder96\Lab3\Lab3\bin\Debug\Lab3.exe
+C:\Users\usuario\Documents\Ingeniería civil\Quinto semestre\Programación orientada a objetos\Laboratorios\Laboratorio 3\laboratorio-03-mabinder96\Lab3\Lab3\bin\Debug\Lab3.pdb
+C:\Users\usuario\Documents\Ingeniería civil\Quinto semestre\Programación orientada a objetos\Laboratorios\Laboratorio 3\laboratorio-03-mabinder96\Lab3\Lab3\obj\Debug\Lab3.csprojAssemblyReference.cache
+C:\Users\usuario\Documents\Ingeniería civil\Quinto semestre\Programación orientada a objetos\Laboratorios\Laboratorio 3\laboratorio-03-mabinder96\Lab3\Lab3\obj\Debug\Lab3.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Documents\Ingeniería civil\Quinto semestre\Programación orientada a objetos\Laboratorios\Laboratorio 3\laboratorio-03-mabinder96\Lab3\Lab3\obj\Debug\Lab3.exe
+C:\Users\usuario\Documents\Ingeniería civil\Quinto semestre\Programación orientada a objetos\Laboratorios\Laboratorio 3\laboratorio-03-mabinder96\Lab3\Lab3\obj\Debug\Lab3.pdb
