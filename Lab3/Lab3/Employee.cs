@@ -10,9 +10,12 @@ namespace Lab3
     {
         private string position; //acá puedo elegir si es supervisor, cajero, jefe, asistente, empaquetador, reponedor y los cargos de los clientes etc.
         private int salary;
-        private string workinghours;
+        private int entry;
+        private int exit;
 
-        public Employee(string name, string surname, int age, string sex, int rut, string birthdate, string nationality, string position, int salary, string workinghours)
+
+
+        public Employee(string name, string surname, int age, string sex, int rut, string birthdate, string nationality, string position, int salary,  int entry, int exit)
         {
             this.name = name;
             this.surname = surname;
@@ -23,30 +26,23 @@ namespace Lab3
             this.nationality = nationality;
             this.position = position;
             this.salary = salary;
-            this.workinghours = workinghours;
+            this.entry = entry;
+            this.exit = exit;
         }
 
         public string Position { get => position; set => position = value; }
         public int Salary { get => salary; set => salary = value; }
-        public string Workinghours { get => workinghours; set => workinghours = value; }
+        public int Entry { get => entry; set => entry = value; }
+        public int Exit { get => exit; set => exit = value; }
 
         public string Name { get => name; set => name = value; }
+        public int Rut { get => rut; set => rut = value; }
 
-        public string ChangePosition(string position)
-        {
-            return position;
-        }
-        public int ChangeSalary(int salary)
-        {
-            return salary;
-        }
-        public int ChangeWorkinghours(int workinghours)
-        {
-            return workinghours;
-        }
+
+        
         public string EmployeeInformation()
         {
-            return "nombre: " + name + ", apellido: " + surname + ", edad: " + age + ", rut: " + rut + ", género: " + sex + ", nacionalidad: " + nationality + ", fecha de nacimiento: " + birthdate + ", sueldo: " + salary + ", horario: " + workinghours + ", cargo: " + position;
+            return "Nombre: " + name + ", apellido: " + surname + ", edad: " + age + ", rut: " + rut + ", género: " + sex + ", nacionalidad: " + nationality + ", fecha de nacimiento: " + birthdate + ", sueldo: " + salary + ", horario: " + entry + "-" + exit + ", cargo: " + position;
         }
 
     }

@@ -31,7 +31,7 @@ namespace Lab3
         public string Type { get => type; set => type = value; }
         public string ProductInformation()
         {
-            return "nombre: " + nameproduct + ", precio: " + price + ", marca: " + brand + ", stock: " + stock  + ", tipo: " + type;
+            return "Nombre: " + nameproduct + ", precio: " + price + ", marca: " + brand + ", stock: " + stock  + ", tipo: " + type;
         }
     }
 }

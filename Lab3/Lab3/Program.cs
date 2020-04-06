@@ -30,7 +30,8 @@ namespace Lab3
                         Console.WriteLine("Opción 2: Empleado ");
                         Console.WriteLine("Opción 3: Producto ");
                         Console.WriteLine("Opción 4: Quiero comprar");
-                        Console.WriteLine("Opción 5: Salir ");
+                        Console.WriteLine("Opción 5: Quiero modificar un empleado");
+                        Console.WriteLine("Opción 6: Salir ");
                         string election2 = Console.ReadLine();
 
                         if (election2 == "1")
@@ -46,7 +47,7 @@ namespace Lab3
                             {
                                 Console.WriteLine("Ingrese edad del cliente: ");
                                 Age = Console.ReadLine();
-                                turnon3=int.TryParse(Age, out age2);
+                                turnon3 = int.TryParse(Age, out age2);
                             }
                             while (!turnon3);
                             age2 = Convert.ToInt32(Age);
@@ -73,7 +74,7 @@ namespace Lab3
                             Dictionary<string, int> clientwishes = new Dictionary<string, int>();
                             while (turnon5 == true)
                             {
-                                Console.WriteLine("Ingrese el nombre de su producto: ");
+                                Console.WriteLine("Ingrese el nombre del producto que desea comprar: ");
                                 string nameproduct = Console.ReadLine();
                                 bool turnon6;
                                 string quantity;
@@ -87,7 +88,7 @@ namespace Lab3
                                 while (!turnon6);
                                 quantityproduct = Convert.ToInt32(quantity);
                                 clientwishes.Add(nameproduct, quantityproduct);
-                                Console.WriteLine("¿Desea agregar algo más?");
+                                Console.WriteLine("¿Desea comprar algo más?");
                                 Console.WriteLine("Opción 1: Sí");
                                 Console.WriteLine("Opción 2: No");
                                 string answer = Console.ReadLine();
@@ -152,9 +153,32 @@ namespace Lab3
                             }
                             while (!turnon5);
                             salary = Convert.ToInt32(Salary);
-                            Console.WriteLine("Ingrese el horario del empleado (Hora inicio- hora término): ");
-                            string workinghours = Console.ReadLine();
-                            Employee newemployee = new Employee(name, surname, age2, sex, rut2, birthdate, nationality, position, salary, workinghours); //Hago el constructor de la canción
+
+                            bool turnon9;
+                            string Entry;
+                            int entry;
+                            do
+                            {
+                                Console.WriteLine("Ingrese horario de entrada: ");
+                                Entry = Console.ReadLine();
+                                turnon9 = int.TryParse(Entry, out entry);
+                            }
+                            while (!turnon9);
+                            entry = Convert.ToInt32(Entry);
+
+                            bool turnon10;
+                            string Exit;
+                            int exit;
+                            do
+                            {
+                                Console.WriteLine("Ingrese horario de salida: ");
+                                Exit = Console.ReadLine();
+                                turnon10 = int.TryParse(Exit, out exit);
+                            }
+                            while (!turnon10);
+                            exit = Convert.ToInt32(Exit);
+
+                            Employee newemployee = new Employee(name, surname, age2, sex, rut2, birthdate, nationality, position, salary, entry, exit);
                             first.AddEmployee(newemployee);
 
                         }
@@ -206,8 +230,46 @@ namespace Lab3
                                 Console.WriteLine(ticket);
                             }
                         }
-
                         else if (election2 == "5")
+                        {
+                            bool turnon8 = true;
+                            do
+                            {
+                                bool turnon7;
+                                string Rut;
+                                int rut;
+                                do
+                                {
+                                    Console.WriteLine("Ingrese el rut del empleado a modificar: ");
+                                    Rut = Console.ReadLine();
+                                    turnon7 = int.TryParse(Rut, out rut);
+                                }
+                                while (!turnon7);
+                                rut = Convert.ToInt32(Rut);
+                                Console.WriteLine("¿Qué desea modificar?");
+                                Console.WriteLine("Opción 1: Cargo");
+                                Console.WriteLine("Opción 2: Sueldo");
+                                Console.WriteLine("Opción 3: Horas de trabajo");
+                                string answer = Console.ReadLine();
+                                first.ChangeEmployee(rut, answer);
+                                Console.WriteLine("¿Desea modificar algo más?");
+                                Console.WriteLine("Opción 1: Sí");
+                                Console.WriteLine("Opción 2: No");
+                                string option = Console.ReadLine();
+                                if (option == "1")
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    turnon8 = false;
+                                }
+                            }
+                            while (turnon8 == true);
+
+
+                        }
+                        else if (election2 == "6")
                         {
                             turnon2 = false;
                             turnon = false;
@@ -222,38 +284,43 @@ namespace Lab3
                     }
                     while (turnon2 == true);
                 }
-                /* else if (election == "2")
-                 {
-                     for (int i = 0; i <= 15; i++)
-                     {
-                         Client newclient = new Client();
-                         clients.Add(newclient);
-                     }
-                     for (int i = 0; i <= 7; i++)
-                     {
-                         Employee newemployee = new Employee( name,  surname,  age,  sex,  rut,  birthdate,  nationality,  position,  salary,  workinghours);
-                         employees.Add(newemployee);
-                     }
-                     for (int i = 0; i <= 30; i++)
-                     {
-                         string nameproduct=
-                         Product newproduct = new Product( nameproduct,  price,  brand,  stockinshowcase,  stockincellar,  type);
-                         products.Add(newproduct);
-                     }
-                     foreach (Product i in products)
-                     {
-                         Console.WriteLine(i.ProductInformation());
-                     }
-                     foreach (Client i in clients)
-                     {
-                         Console.WriteLine(i.ClientInformation());
-                     }
-                     foreach (Employee i in employees)
-                     {
-                         Console.WriteLine(i.EmployeeInformation());
-                     }
-                     Console.ReadKey();
-                 }*/
+                else if (election == "2")
+                {
+                    for (int i = 0; i <= 15; i++)
+                    {
+                        Client newclient = first.AddRandomClient();
+                        first.AddClient(newclient);
+                    }
+                    for (int i = 0; i <= 7; i++)
+                    {
+                        Employee newemployee = first.AddRandomEmployee();
+                        first.AddEmployee(newemployee);
+                    }
+                    for (int i = 0; i <= 30; i++)
+                    {
+                        Product newproduct = first.AddRandomProduct();
+                        first.AddProduct(newproduct);
+                    }
+                    Console.WriteLine("INFORMACIÓN CLIENTES\n");
+                    first.ClientsInformation();
+                    Console.WriteLine(" \n");
+                    Console.WriteLine("INFORMACIÓN EMPLEADOS\n");
+                    first.EmployeesInformation();
+                    Console.WriteLine(" \n");
+                    Console.WriteLine("INFORMACIÓN PRODUCTOS\n");
+                    first.ProductsInformation();
+                    Console.WriteLine(" \n");
+                    Console.WriteLine("¡A COMPRAR!");
+                    string ticket = first.Buy();
+                    if (ticket.Count() == 0)
+                    {
+                        Console.WriteLine("No se tienen ventas");
+                    }
+                    else
+                    {
+                        Console.WriteLine(ticket);
+                    }
+                }
                 else if (election == "3")
                 {
                     turnon = false;
