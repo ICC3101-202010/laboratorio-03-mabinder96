@@ -26,6 +26,8 @@ namespace Lab3
 
         //Encapsulo los atributos que voy a necesitar
         public Dictionary<string, int> Clientwishes { get => clientwishes; set => clientwishes = value; }
+        public int Rut { get => rut; set => rut = value; }
+        public string Name { get => name; set => name = value; }
 
         //Creo método que me devuelve la información del trabajador
         public string ClientInformation()

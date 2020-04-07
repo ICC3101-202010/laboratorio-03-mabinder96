@@ -19,7 +19,7 @@ namespace Lab3
         List<Employee> employees = new List<Employee>();
 
         //Creo un string que almacena las boletas
-        string tickets = "BOLETAS\n\n";
+        string tickets = "\nBOLETAS\n\n";
 
         //Creo un método que me imprime la información de cada producto almacenado en la lista products
         public void ProductsInformation()
@@ -163,8 +163,123 @@ namespace Lab3
 
         int ticketnumber = 0; //Creo una variable para ir poniéndole número a las boletas
 
-        //Creo el método comprar
-        public string Buy()
+
+        public string Buy(int rut)
+        {
+            if (RandomSeller() == "No hay cajeros disponibles") //Cuando no hay cajeros disponiles
+            {
+                return "No hay cajeros disponibles"; //Devuelvo que no hay cajeros disponibles
+            }
+            else
+            {
+                foreach (Client a in clients) //Recorro cada cliente
+                {
+                    string shoppingcart = ""; //Creo una variable para su carro de compras
+                    string seller = RandomSeller(); //Elijo un vendedor al azar
+                    int totalprice = 0; //Creo una variable para almacenar el precio total de cada cliente
+                    if (a.Rut == rut) //Recorro cada deseo de compra que tiene el cliente
+                    {
+                        foreach (KeyValuePair<string, int> i in a.Clientwishes)
+                        {
+                            int quantity = i.Value; //Creo la variable cantidad que es la cantidad que desea el cliente
+                            int price; //Creo la variable precio
+                            string nameproduct = i.Key.ToLower(); //Paso el nombre del producto que desea el cliente a minúsculas
+                            foreach (Product p in products)
+                            {
+                                if (quantity == 0) continue; //Si la cantidad que deseo de un producto es 0, simplemente continúo
+                                else
+                                {
+                                    if (p.Nameproduct.ToLower() == nameproduct && p.Stock >= quantity) //Cuando los nombres del producto coinciden y la stock disponible alcanza
+                                    {
+                                        price = quantity * p.Price; //Multiplico la cantidad comprada por el precio unitario
+                                        totalprice += price; //Le sumo al precio total de la boleta el precio gastado en el producto
+                                        shoppingcart += "Producto: " + i.Key + ", marca: " + p.Brand + ", cantidad: " + quantity + ", precio unitario: " + p.Price + ", precio total: " + price + "\n"; //Le agrego al carro de compras los datos relevantes
+                                        p.Stock -= quantity; //Le resto al stock disponible la cantidad comprada
+                                        quantity = 0; //La cantidad deseada pasa a ser 0
+                                    }
+                                    else if (p.Nameproduct.ToLower() == nameproduct && p.Stock < quantity && p.Stock > 0) //Cuando los nombres coinciden y el stock es menor a la cantidad deseada, pero mayor a 0
+                                    {
+                                        price = p.Stock * p.Price; //Multiplico la cantidad que compro (que va a ser igual al stock disponible) por el precio unitario
+                                        totalprice += price; //Le sumo al precio total de la boleta el precio gastado en el producto
+                                        shoppingcart += "Producto: " + i.Key + ", marca: " + p.Brand + ", cantidad: " + p.Stock + ", precio unitario: $" + p.Price + ", precio total: $" + price + "\n"; //Le agrego al carro de compras los datos relevantes
+                                        quantity -= p.Stock; //Le resto a la cantidad deseada lo que compré (que es el stock disponible)
+                                        p.Stock -= p.Stock; //El stock disponible pasa a ser 0
+                                    }
+                                }
+                            }
+                        }
+                        DateTime now = DateTime.Now; //Establezco la fecha y hora de la compra
+                        if (shoppingcart == "") return "Carro de compras de "+ a.Name +" se encuentra vacío"; //Si la persona no va a comprar nada, no la agrego a la boleta
+                        else
+                        {
+                            ticketnumber += 1; //Agrego el número de la boleta
+                            tickets += "BOLETA NÚMERO: " + ticketnumber + "\n" + "INFORMACIÓN CLIENTE: " + a.ClientInformation() + "\nCOMPRAS: \n" + shoppingcart + "VENDEDOR: " + seller + "\nPRECIO TOTAL: $" + totalprice + "\nFECHA Y HORA: " + now + "\n\n"; //Le agrego a las boletas la boleta del comprador a
+                        }
+                        clients.Remove(a);
+                        return tickets;
+                    }
+                }
+                return "Cliente no encontrado";
+            }
+        }
+
+        //Creo el método comprar de a una (compra todos los elementos que están disponibles de los clientes que tienen listas de deseos)
+        public string Buyall()
+        {
+            if (RandomSeller() == "No hay cajeros disponibles") //Cuando no hay cajeros disponiles
+            {
+                return "No hay cajeros disponibles"; //Devuelvo que no hay cajeros disponibles
+            }
+            else
+            {
+                foreach (Client a in clients) //Recorro cada cliente
+                {
+                    string shoppingcart = ""; //Creo una variable para su carro de compras
+                    string seller = RandomSeller(); //Elijo un vendedor al azar
+                    int totalprice = 0; //Creo una variable para almacenar el precio total de cada cliente
+                    foreach (KeyValuePair<string, int> i in a.Clientwishes) //Recorro cada deseo de compra que tiene el cliente
+                    {
+                        int quantity = i.Value; //Creo la variable cantidad que es la cantidad que desea el cliente
+                        int price; //Creo la variable precio
+                        string nameproduct = i.Key.ToLower(); //Paso el nombre del producto que desea el cliente a minúsculas
+                        foreach (Product p in products)
+                        {
+                            if (quantity == 0) continue; //Si la cantidad que deseo de un producto es 0, simplemente continúo
+                            else
+                            {
+                                if (p.Nameproduct.ToLower() == nameproduct && p.Stock >= quantity) //Cuando los nombres del producto coinciden y la stock disponible alcanza
+                                {
+                                    price = quantity * p.Price; //Multiplico la cantidad comprada por el precio unitario
+                                    totalprice += price; //Le sumo al precio total de la boleta el precio gastado en el producto
+                                    shoppingcart += "Producto: " + i.Key + ", marca: " + p.Brand + ", cantidad: " + quantity + ", precio unitario: " + p.Price + ", precio total: " + price + "\n"; //Le agrego al carro de compras los datos relevantes
+                                    p.Stock -= quantity; //Le resto al stock disponible la cantidad comprada
+                                    quantity = 0; //La cantidad deseada pasa a ser 0
+                                }
+                                else if (p.Nameproduct.ToLower() == nameproduct && p.Stock < quantity && p.Stock > 0) //Cuando los nombres coinciden y el stock es menor a la cantidad deseada, pero mayor a 0
+                                {
+                                    price = p.Stock * p.Price; //Multiplico la cantidad que compro (que va a ser igual al stock disponible) por el precio unitario
+                                    totalprice += price; //Le sumo al precio total de la boleta el precio gastado en el producto
+                                    shoppingcart += "Producto: " + i.Key + ", marca: " + p.Brand + ", cantidad: " + p.Stock + ", precio unitario: $" + p.Price + ", precio total: $" + price + "\n"; //Le agrego al carro de compras los datos relevantes
+                                    quantity -= p.Stock; //Le resto a la cantidad deseada lo que compré (que es el stock disponible)
+                                    p.Stock -= p.Stock; //El stock disponible pasa a ser 0
+                                }
+                            }
+                        }
+                    }
+                    DateTime now = DateTime.Now; //Establezco la fecha y hora de la compra
+                    if (shoppingcart == "") continue; //Si la persona no va a comprar nada, no la agrego a la boleta
+                    else
+                    {
+                        ticketnumber += 1; //Agrego el número de la boleta
+                        tickets += "BOLETA NÚMERO: " + ticketnumber + "\n" + "INFORMACIÓN CLIENTE: " + a.ClientInformation() + "\nCOMPRAS: \n" + shoppingcart + "VENDEDOR: " + seller + "\nPRECIO TOTAL: $" + totalprice + "\nFECHA Y HORA: " + now + "\n\n"; //Le agrego a las boletas la boleta del comprador a
+                    }
+                }
+                return tickets; //Devuelvo los tickets
+            }
+        }
+
+        //Creo el método que va a parar cuando 5 clientes hayan comprado
+        public string Buy5()
         {
             if (RandomSeller() == "No hay cajeros disponibles") //Cuando no hay cajeros disponiles
             {
@@ -207,14 +322,6 @@ namespace Lab3
                                 else counter += 1; //Si no encuentro el producto, le agrego al contador 1
                             }
                         }
-                        if (counter == products.Count) //Si el contador es igual a la cantidad de productos que hay
-                        {
-                            shoppingcart += "Producto: " + i.Key + " no está en tienda\n"; //Se le agrega al carro que el producto no estaba en la tienda
-                        }
-                        else if (quantity != 0)
-                        {
-                            shoppingcart += "No se pudieron comprar " + quantity + " " + i.Key + "\n"; //Se le agrega al carro la cantidad de productos que no se pudieron comprar
-                        }
                     }
                     DateTime now = DateTime.Now; //Establezco la fecha y hora de la compra
                     if (shoppingcart == "") continue; //Si la persona no va a comprar nada, no la agrego a la boleta
@@ -223,23 +330,23 @@ namespace Lab3
                         ticketnumber += 1; //Agrego el número de la boleta
                         tickets += "BOLETA NÚMERO: " + ticketnumber + "\n" + "INFORMACIÓN CLIENTE: " + a.ClientInformation() + "\nCOMPRAS: \n" + shoppingcart + "VENDEDOR: " + seller + "\nPRECIO TOTAL: $" + totalprice + "\nFECHA Y HORA: " + now + "\n\n"; //Le agrego a las boletas la boleta del comprador a
                     }
+                    if (ticketnumber == 5) break; //Permito máximo 5 compras
                 }
+               
                 return tickets; //Devuelvo los tickets
             }
         }
 
         //Creo el método para eliminar los elementos creados en las listas
-        public void DelateElements()
+        public void DelateClients()
         {
-            products.Clear();
-            employees.Clear();
             clients.Clear();
         }
 
         //Creo método para reseatear las boletas
         public void DelateTickets()
         {
-            tickets = "BOLETAS\n\n";
+            tickets = "\nBOLETAS\n\n";
             ticketnumber = 0;
         }
 
@@ -340,7 +447,7 @@ namespace Lab3
         {
             string[] possiblePosition = new string[] //Creo posibles cargos
             {
-                "Gerente", "Cajero", "Auxiliar", "Empaquetador", "Limpiador", "Cajero", "Cajero","Cajeros" //Repito cajeros, ya que salía mucho en la simulación que no habían cajeros disponibles
+                "Gerente", "Cajero", "Auxiliar", "Empaquetador", "Limpiador", "Cajero", "Cajero","Cajero" //Repito cajeros, ya que salía mucho en la simulación que no habían cajeros disponibles
             };
             return possiblePosition[rnd.Next(possiblePosition.Length)];
         }

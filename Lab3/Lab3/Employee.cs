@@ -41,7 +41,7 @@ namespace Lab3
         //Creo método que me devuelve la información del trabajador
         public string EmployeeInformation()
         {
-            return "Nombre: " + name + ", apellido: " + surname + ", edad: " + age + ", rut: " + rut + ", género: " + sex + ", nacionalidad: " + nationality + ", fecha de nacimiento: " + birthdate + ", sueldo: " + salary + ", horario: " + entry + ":00 -" + exit + ":00"+ ", cargo: " + position;
+            return "Nombre: " + name + ", apellido: " + surname + ", edad: " + age + ", rut: " + rut + ", género: " + sex + ", nacionalidad: " + nationality + ", fecha de nacimiento: " + birthdate + ", sueldo: " + salary + ", horario: " + entry + ":00-" + exit + ":00"+ ", cargo: " + position;
         }
     }
 }

@@ -34,9 +34,10 @@ namespace Lab3
                         Console.WriteLine("Opción 1: Cliente ");
                         Console.WriteLine("Opción 2: Empleado ");
                         Console.WriteLine("Opción 3: Producto ");
-                        Console.WriteLine("Opción 4: Quiero comprar");
-                        Console.WriteLine("Opción 5: Quiero modificar un empleado");
-                        Console.WriteLine("Opción 6: Salir al menú principal ");
+                        Console.WriteLine("Opción 4: Comprar por rut"); //Selecciono el cliente que quiero que compre según su rut
+                        Console.WriteLine("Opción 5: Quiero comprar todo de una"); //Compro todos los productos disponibles que tengan los clientes en sus listas de deseos
+                        Console.WriteLine("Opción 6: Quiero modificar un empleado");
+                        Console.WriteLine("Opción 7: Salir al menú principal ");
                         string election2 = Console.ReadLine();
 
                         //Si elige la opción 1, creo al cliente
@@ -235,14 +236,36 @@ namespace Lab3
                             first.AddProduct(newproduct);
                         }
 
-                        //Si elige la opción 4, hago correr la función comprar
+                        //Si elige la opción 4, el usuario debe ingresar el rut del cliente que va a comprar
                         else if (election2 == "4")
                         {
-                            string buy=first.Buy();
-                            Console.WriteLine(buy);
-                            if (buy!= "No hay cajeros disponibles") //Si esque no hay cajeros disponibles, NO reseteo las listas de clientes, empleados y productos
+                            //Hago un ciclo para comprobar que el rut sea un número
+                            bool turnon4;
+                            string Rut;
+                            int rut2;
+                            do
                             {
-                                first.DelateElements(); //En caso de que sí se hagan las compras, si las reseteo
+                                Console.WriteLine("Ingrese el rut del cliente que va a comprar (sin guión y si termina con k, reemplazar por 0): ");
+                                Rut = Console.ReadLine();
+                                turnon4 = int.TryParse(Rut, out rut2);
+                            }
+                            while (!turnon4);
+                            rut2 = Convert.ToInt32(Rut); //Establezco el rut del cliente que va a comprar
+                            string buy = first.Buy(rut2);
+                            Console.WriteLine(buy);
+                        }
+                        //Si elige la opción 5, hago correr la función comprar que compra todo de una
+                        else if (election2 == "5")
+                        {
+                            string buy=first.Buyall();
+                            if (buy == "\nBOLETAS\n\n") //Si no tengo compras en la boleta, aviso que no se pudo realizar ninguna compra
+                            {
+                                Console.WriteLine("No se pudo realizar ninguna compra");
+                            }
+                            else Console.WriteLine(buy);
+                            if (buy!= "No hay cajeros disponibles") //Si esque no hay cajeros disponibles, NO reseteo las listas de clientes
+                            {
+                                first.DelateClients(); //En caso de que sí se hagan las compras, reseteo la lista de clientes, ya que ya compraron
                             }
                             Console.WriteLine("¿Desea resetear las boletas ? "); //Le pregunto al usuario si desea resetear las boletas, ya que puede ser que quiera guardas las boletas para distintas compras
                             Console.WriteLine("Opción 1: Sí");
@@ -254,8 +277,8 @@ namespace Lab3
                             }
                         }
 
-                        //Si elige la opción 5, hago correr la función para modificar a un empleado
-                        else if (election2 == "5")
+                        //Si elige la opción 6, hago correr la función para modificar a un empleado
+                        else if (election2 == "6")
                         {
                             //Creo un ciclo que se  acaba cuando el usuario quiera dejar de crear empleados
                             bool turnon8 = true;
@@ -306,9 +329,9 @@ namespace Lab3
                             }
                             while (turnon8 == true);
                         
-                         //Si elige la opción 6, salgo al menú principal 
+                         //Si elige la opción 7, salgo al menú principal 
                         }
-                        else if (election2 == "6")
+                        else if (election2 == "7")
                         {
                             turnon2 = false;
                         }
@@ -357,16 +380,20 @@ namespace Lab3
 
                     //LLamo a la función comprar
                     Console.WriteLine("¡A COMPRAR!");
-                    string buy = first.Buy();
-                    Console.WriteLine(buy);
-                    Console.WriteLine("INFORMACIÓN PRODUCTOS ACTUALIZADOS\n");
-                    first.ProductsInformation();
+                    string buy = first.Buy5(); //Uso el método Buy5, ya que para el BONUS me piden que solo 5 personas compren
+                    if (buy== "\nBOLETAS\n\n") //Si no tengo compras en la boleta, aviso que no se pudo realizar ninguna compra
+                    {
+                        Console.WriteLine("No se pudo realizar ninguna compra");
+                    }
+                    else Console.WriteLine(buy);
                     if (buy != "No hay cajeros disponibles")
                     {
-                        first.DelateElements(); //Si esque se logran realizar las compras, reseteó las listas de clientes, productos y empleados
+                        first.DelateClients(); //Si esque se logran realizar las compras, reseteó las listas de clientes
+                        Console.WriteLine("INFORMACIÓN PRODUCTOS ACTUALIZADOS\n");
+                        first.ProductsInformation();
                     }
                     Console.WriteLine("¿Desea resetear las boletas?"); //Le pregunto al usuario si desea resetear las boletas
-                    Console.WriteLine("Opción 1: Sí");
+                    Console.WriteLine("Opción 1: Sí"); //Si esque quiero seguir comprando de a 5 TENGO que resetear las boletas
                     Console.WriteLine("Opción 2: No");
                     string delate = Console.ReadLine();
                     if (delate == "1")
