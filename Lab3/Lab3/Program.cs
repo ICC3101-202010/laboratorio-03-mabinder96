@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Lab3
 {
@@ -10,7 +10,10 @@ namespace Lab3
     {
         static void Main(string[] args)
         {
+            //Creo el supermercado
             Supermaket first = new Supermaket();
+
+            //Hago un ciclo para cuando el usuario desee salir, salga
             bool turnon = true;
             do
             {
@@ -20,8 +23,10 @@ namespace Lab3
                 Console.WriteLine("Opción 3: Salir ");
                 string election = Console.ReadLine();
 
+                //Si elige la opción 1, creo las cosas de forma manual
                 if (election == "1")
                 {
+                    //Hago otro ciclo para cuando la persona desee salir vuelva al menú principal
                     bool turnon2 = true;
                     do
                     {
@@ -31,15 +36,17 @@ namespace Lab3
                         Console.WriteLine("Opción 3: Producto ");
                         Console.WriteLine("Opción 4: Quiero comprar");
                         Console.WriteLine("Opción 5: Quiero modificar un empleado");
-                        Console.WriteLine("Opción 6: Salir ");
+                        Console.WriteLine("Opción 6: Salir al menú principal ");
                         string election2 = Console.ReadLine();
 
+                        //Si elige la opción 1, creo al cliente
                         if (election2 == "1")
                         {
                             Console.WriteLine("Ingrese nombre del cliente: ");
-                            string name = Console.ReadLine();
+                            string name = Console.ReadLine(); //Establezco el nombre del cliente
                             Console.WriteLine("Ingrese apellido del cliente: ");
-                            string surname = Console.ReadLine();
+                            string surname = Console.ReadLine(); //Establezco el apellido del cliente
+                            //Creo un ciclo para comprobar que la edad sea un número
                             bool turnon3;
                             string Age;
                             int age2;
@@ -50,10 +57,10 @@ namespace Lab3
                                 turnon3 = int.TryParse(Age, out age2);
                             }
                             while (!turnon3);
-                            age2 = Convert.ToInt32(Age);
-
+                            age2 = Convert.ToInt32(Age); //Establezco la edad del cliente
                             Console.WriteLine("Ingrese el género del cliente (Femenino o Masculino): ");
-                            string sex = Console.ReadLine();
+                            string sex = Console.ReadLine(); //Establezco el sexo del cliente
+                            //Creo un ciclo para comprobar que el rut sea un número
                             bool turnon4;
                             string Rut;
                             int rut2;
@@ -64,47 +71,59 @@ namespace Lab3
                                 turnon4 = int.TryParse(Rut, out rut2);
                             }
                             while (!turnon4);
-                            rut2 = Convert.ToInt32(Rut);
+                            rut2 = Convert.ToInt32(Rut); //Establezco el rut del cliente
                             Console.WriteLine("Ingrese la fecha de nacimiento del cliente (día/mes/año): ");
-                            string birthdate = Console.ReadLine();
+                            string birthdate = Console.ReadLine(); //Establezo la fecha de nacimiento del cliente
                             Console.WriteLine("Ingrese la nacionalidad del cliente: ");
-                            string nationality = Console.ReadLine();
-
-                            bool turnon5 = true;
+                            string nationality = Console.ReadLine(); //Establezco la nacionalidad del cliente
                             Dictionary<string, int> clientwishes = new Dictionary<string, int>();
-                            while (turnon5 == true)
+                            bool turnon7 = true;
+                            do
                             {
-                                Console.WriteLine("Ingrese el nombre del producto que desea comprar: ");
-                                string nameproduct = Console.ReadLine();
-                                bool turnon6;
-                                string quantity;
-                                int quantityproduct;
-                                do
-                                {
-                                    Console.WriteLine("Ingrese la cantidad: ");
-                                    quantity = Console.ReadLine();
-                                    turnon6 = int.TryParse(quantity, out quantityproduct);
-                                }
-                                while (!turnon6);
-                                quantityproduct = Convert.ToInt32(quantity);
-                                clientwishes.Add(nameproduct, quantityproduct);
-                                Console.WriteLine("¿Desea comprar algo más?");
+                                Console.WriteLine("¿Desea comprar?");
                                 Console.WriteLine("Opción 1: Sí");
                                 Console.WriteLine("Opción 2: No");
-                                string answer = Console.ReadLine();
-                                if (answer == "1")
+                                string answ = Console.ReadLine();
+                                if (answ == "1")
                                 {
-                                    continue;
+                                    //Creo un ciclo para crear la lista de deseos del cliente y el usuario decida cuando dejar de agregar productos
+                                    bool turnon5 = true;
+                                    while (turnon5 == true)
+                                    {
+                                        Console.WriteLine("Ingrese el nombre del producto que desea comprar: ");
+                                        string nameproduct = Console.ReadLine(); //Establezco el nombre del producto
+                                        //Creo un ciclo para comprobar que la cantidad sea un número
+                                        bool turnon6;
+                                        string quantity;
+                                        int quantityproduct;
+                                        do
+                                        {
+                                            Console.WriteLine("Ingrese la cantidad: ");
+                                            quantity = Console.ReadLine();
+                                            turnon6 = int.TryParse(quantity, out quantityproduct);
+                                        }
+                                        while (!turnon6);
+                                        quantityproduct = Convert.ToInt32(quantity); //Establezco la cantidad del producto
+                                        clientwishes.Add(nameproduct, quantityproduct); //Agrego el producto a la lista de deseos
+                                        Console.WriteLine("¿Desea comprar algo más?"); //Le pregunto al usuario si quiere agregar algo más
+                                        Console.WriteLine("Opción 1: Sí");
+                                        Console.WriteLine("Opción 2: No");
+                                        string answer = Console.ReadLine();
+                                        if (answer != "1")
+                                        {
+                                            turnon5 = false; //Si la respuesta es distinta de 1, salgo del ciclo
+                                            turnon7 = false;
+                                        }
+                                    }
                                 }
-                                else
-                                {
-                                    turnon5 = false;
-                                }
+                                else turnon7 = false;
                             }
-                            Client newclient = new Client(name, surname, age2, sex, rut2, birthdate, nationality, clientwishes);
-                            first.AddClient(newclient);
+                            while (turnon7 == true);
+                            Client newclient = new Client(name, surname, age2, sex, rut2, birthdate, nationality, clientwishes); //Creo un nuevo cliente
+                            first.AddClient(newclient); //Agrego el cliente a la lista de clientes
                         }
 
+                        //Lo mismo que hice para los clientes, se repite para los empleados
                         else if (election2 == "2")
                         {
                             Console.WriteLine("Ingrese nombre del empleado: ");
@@ -140,8 +159,9 @@ namespace Lab3
                             string birthdate = Console.ReadLine();
                             Console.WriteLine("Ingrese la nacionalidad del empleado: ");
                             string nationality = Console.ReadLine();
-                            Console.WriteLine("Ingrese cargo del empleado: ");
-                            string position = Console.ReadLine();
+                            Console.WriteLine("Ingrese cargo del empleado: "); 
+                            string position = Console.ReadLine(); //Establezco el cargo del empleado
+                            //Creo un ciclo para que el sueldo ingresado sea un número
                             bool turnon5;
                             string Salary;
                             int salary;
@@ -152,8 +172,8 @@ namespace Lab3
                                 turnon5 = int.TryParse(Salary, out salary);
                             }
                             while (!turnon5);
-                            salary = Convert.ToInt32(Salary);
-
+                            salary = Convert.ToInt32(Salary); //Establezco el sueldo
+                            //Creo un ciclo para que la hora de entrada sea un número y otro para que la hora de salida sea un número
                             bool turnon9;
                             string Entry;
                             int entry;
@@ -164,8 +184,7 @@ namespace Lab3
                                 turnon9 = int.TryParse(Entry, out entry);
                             }
                             while (!turnon9);
-                            entry = Convert.ToInt32(Entry);
-
+                            entry = Convert.ToInt32(Entry); //Establezco la hora de entrada
                             bool turnon10;
                             string Exit;
                             int exit;
@@ -176,12 +195,12 @@ namespace Lab3
                                 turnon10 = int.TryParse(Exit, out exit);
                             }
                             while (!turnon10);
-                            exit = Convert.ToInt32(Exit);
-
-                            Employee newemployee = new Employee(name, surname, age2, sex, rut2, birthdate, nationality, position, salary, entry, exit);
-                            first.AddEmployee(newemployee);
-
+                            exit = Convert.ToInt32(Exit); //Establezco la hora de salida
+                            Employee newemployee = new Employee(name, surname, age2, sex, rut2, birthdate, nationality, position, salary, entry, exit); //Creo el empleado
+                            first.AddEmployee(newemployee); //Agrego el empleado a la lista de empleados
                         }
+
+                        //Si elige la opción 3, vuelvo a repetir lo anterior, pero esta vez, para los atributos del producto
                         else if (election2 == "3")
                         {
                             Console.WriteLine("Ingrese nombre del producto: ");
@@ -199,7 +218,6 @@ namespace Lab3
                             }
                             while (!turnon3);
                             price = Convert.ToInt32(Price);
-
                             bool turnon4;
                             string Stock;
                             int stock;
@@ -211,30 +229,39 @@ namespace Lab3
                             }
                             while (!turnon4);
                             stock = Convert.ToInt32(Stock);
-
                             Console.WriteLine("Ingrese el tipo de producto: ");
                             string type = Console.ReadLine();
                             Product newproduct = new Product(nameproduct, price, brand, stock, type);
                             first.AddProduct(newproduct);
-
                         }
+
+                        //Si elige la opción 4, hago correr la función comprar
                         else if (election2 == "4")
                         {
-                            string ticket = first.Buy();
-                            if (ticket.Count() == 0)
+                            string buy=first.Buy();
+                            Console.WriteLine(buy);
+                            if (buy!= "No hay cajeros disponibles") //Si esque no hay cajeros disponibles, NO reseteo las listas de clientes, empleados y productos
                             {
-                                Console.WriteLine("No se tienen ventas");
+                                first.DelateElements(); //En caso de que sí se hagan las compras, si las reseteo
                             }
-                            else
+                            Console.WriteLine("¿Desea resetear las boletas ? "); //Le pregunto al usuario si desea resetear las boletas, ya que puede ser que quiera guardas las boletas para distintas compras
+                            Console.WriteLine("Opción 1: Sí");
+                            Console.WriteLine("Opción 2: No");
+                            string delate = Console.ReadLine();
+                            if (delate == "1")
                             {
-                                Console.WriteLine(ticket);
+                                first.DelateTickets(); 
                             }
                         }
+
+                        //Si elige la opción 5, hago correr la función para modificar a un empleado
                         else if (election2 == "5")
                         {
+                            //Creo un ciclo que se  acaba cuando el usuario quiera dejar de crear empleados
                             bool turnon8 = true;
                             do
                             {
+                                //Creo un ciclo para comprobar que el rut ingresado sean números
                                 bool turnon7;
                                 string Rut;
                                 int rut;
@@ -245,35 +272,48 @@ namespace Lab3
                                     turnon7 = int.TryParse(Rut, out rut);
                                 }
                                 while (!turnon7);
-                                rut = Convert.ToInt32(Rut);
-                                Console.WriteLine("¿Qué desea modificar?");
-                                Console.WriteLine("Opción 1: Cargo");
-                                Console.WriteLine("Opción 2: Sueldo");
-                                Console.WriteLine("Opción 3: Horas de trabajo");
-                                string answer = Console.ReadLine();
-                                first.ChangeEmployee(rut, answer);
-                                Console.WriteLine("¿Desea modificar algo más?");
+                                rut = Convert.ToInt32(Rut); //Establezc el rut
+                                //Creo un ciclo para que el usuario decida cuando dejar de modificar al empleado seleccionado
+                                bool turnon9 = true;
+                                do
+                                {
+                                    Console.WriteLine("¿Qué desea modificar?"); //Le pregunto al usuario qué desea modificar
+                                    Console.WriteLine("Opción 1: Cargo");
+                                    Console.WriteLine("Opción 2: Sueldo");
+                                    Console.WriteLine("Opción 3: Horas de trabajo");
+                                    string answer = Console.ReadLine();
+                                    string change=first.ChangeEmployee(rut, answer);
+                                    Console.WriteLine(change);
+                                    if (change == "Rut no encontrado\n") turnon9 = false; //Si el rut no lo encuetra, termina el ciclo en el que se le pregunta si quiere modificar algo más del mismo usuario 
+                                    else
+                                    {
+                                        Console.WriteLine("¿Desea modificar algo más del empleado: " + rut + "?");
+                                        Console.WriteLine("Opción 1: Sí");
+                                        Console.WriteLine("Opción 2: No");
+                                        string option2 = Console.ReadLine();
+                                        if (option2 != "1") turnon9 = false; //Si no quiere modificar nada más del empleado específico, termino el ciclo
+                                    }
+                                }
+                                while (turnon9==true);
+                                Console.WriteLine("¿Desea modificar algo de otro empleado?");
                                 Console.WriteLine("Opción 1: Sí");
                                 Console.WriteLine("Opción 2: No");
                                 string option = Console.ReadLine();
-                                if (option == "1")
+                                if (option != "1")
                                 {
-                                    continue;
-                                }
-                                else
-                                {
-                                    turnon8 = false;
+                                    turnon8 = false; //Si no quiere modifccar otro empleado, se acaba el ciclo
                                 }
                             }
                             while (turnon8 == true);
-
-
+                        
+                         //Si elige la opción 6, salgo al menú principal 
                         }
                         else if (election2 == "6")
                         {
                             turnon2 = false;
-                            turnon = false;
                         }
+
+                        //Si no elige ninguna de las opciones, se sale del programa (para terminar, hay que presionar enter, porque tengo un ReadKey() para que se vea el mensaje)
                         else
                         {
                             Console.WriteLine("Error. Esa opción no existe. Saliendo.");
@@ -281,26 +321,30 @@ namespace Lab3
                             turnon2 = false;
                             turnon = false;
                         }
+
                     }
                     while (turnon2 == true);
                 }
+
+                //Si elige la opción 2, genero todo de forma aleatoria
                 else if (election == "2")
                 {
-                    for (int i = 0; i <= 15; i++)
+                    for (int i = 0; i < 15; i++) //Genero 15 clientes de forma aleatoria
                     {
-                        Client newclient = first.AddRandomClient();
-                        first.AddClient(newclient);
+                        Client newclient = first.AddRandomClient(); //Creo el cliente
+                        first.AddClient(newclient); //Lo agrego a la lista de clientes
                     }
-                    for (int i = 0; i <= 7; i++)
+                    for (int i = 0; i < 7; i++) //Genero 7 empleados de forma aleatoria
                     {
-                        Employee newemployee = first.AddRandomEmployee();
-                        first.AddEmployee(newemployee);
+                        Employee newemployee = first.AddRandomEmployee();  //Creo el empleado
+                        first.AddEmployee(newemployee); //Lo agrego a la lista de empleados
                     }
-                    for (int i = 0; i <= 30; i++)
+                    for (int i = 0; i < 30; i++) //Genero 30 productos de forma aleatoria
                     {
-                        Product newproduct = first.AddRandomProduct();
-                        first.AddProduct(newproduct);
+                        Product newproduct = first.AddRandomProduct(); //Creo el producto
+                        first.AddProduct(newproduct); //Lo agrego a la lista de productos
                     }
+                    //Imprimo en pantalla la información de cada persona y cada producto
                     Console.WriteLine("INFORMACIÓN CLIENTES\n");
                     first.ClientsInformation();
                     Console.WriteLine(" \n");
@@ -310,21 +354,34 @@ namespace Lab3
                     Console.WriteLine("INFORMACIÓN PRODUCTOS\n");
                     first.ProductsInformation();
                     Console.WriteLine(" \n");
+
+                    //LLamo a la función comprar
                     Console.WriteLine("¡A COMPRAR!");
-                    string ticket = first.Buy();
-                    if (ticket.Count() == 0)
+                    string buy = first.Buy();
+                    Console.WriteLine(buy);
+                    Console.WriteLine("INFORMACIÓN PRODUCTOS ACTUALIZADOS\n");
+                    first.ProductsInformation();
+                    if (buy != "No hay cajeros disponibles")
                     {
-                        Console.WriteLine("No se tienen ventas");
+                        first.DelateElements(); //Si esque se logran realizar las compras, reseteó las listas de clientes, productos y empleados
                     }
-                    else
+                    Console.WriteLine("¿Desea resetear las boletas?"); //Le pregunto al usuario si desea resetear las boletas
+                    Console.WriteLine("Opción 1: Sí");
+                    Console.WriteLine("Opción 2: No");
+                    string delate = Console.ReadLine();
+                    if (delate == "1")
                     {
-                        Console.WriteLine(ticket);
+                        first.DelateTickets(); //Reseteo las boletas
                     }
                 }
+
+                //Si elige la opción 3, salgo del programa
                 else if (election == "3")
                 {
                     turnon = false;
                 }
+
+                //Si elige otra opción que no existe, sale del programa
                 else
                 {
                     Console.WriteLine("Error. Esa opción no existe. Saliendo del programa.");
@@ -333,7 +390,6 @@ namespace Lab3
                 }
             }
             while (turnon == true);
-
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab3
 {
+    //Creo la clase persona que es la base de los empleados y clientes
     public abstract class Person
     {
         //Creo los atributos que van a tener todas las personas
